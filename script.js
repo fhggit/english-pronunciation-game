@@ -12,46 +12,64 @@ let currentQuestion = "";
 let currentLevel = 1;
 let xp = 0;
 let streak = 0;
+let currentUnit = "unit1";
+let availableQuestions = [];
+let unlockedUnits = ["unit1"];
+
 
 // 🎯 Banco por niveles (6° a 11°)
-const levels = {
+const curriculum = {
 
-1: [
+1: {
 
-// Grade 6 - Basic Vocabulary
-
+unit1: {
+title: "Greetings and Goodbyes",
+questions: [
 "hello",
+"hi",
+"hey",
 "good morning",
 "good afternoon",
-"good night",
+"good night"
+]
+},
+
+unit2: {
+title: "Courtesy Expressions",
+questions: [
 "thank you",
-"please",
+"please"
+]
+},
+
+unit3: {
+title: "Professions",
+questions: [
 "teacher",
 "student",
-"school",
-"classroom",
+"doctor",
+"artist",
+"engineer",
+"pilot"
+]
+},
+
+unit4: {
+title: "School Objects",
+questions: [
 "book",
 "notebook",
 "pencil",
 "eraser",
 "desk",
-"chair",
-"red",
-"blue",
-"green",
-"yellow",
-"dog",
-"cat",
-"bird",
-"fish",
-"elephant",
-"my name is Juan",
-"how are you",
-"i am fine",
-"see you tomorrow",
-"have a nice day"
+"chair"
+]
+}
 
-],
+}
+
+};
+
 
 2: [
 
@@ -249,6 +267,52 @@ function startGame(){
 
     setLevel();
 
+    function loadUnits(){
+
+    const selector =
+    document.getElementById("unitSelector");
+
+    selector.innerHTML = "";
+
+    const units =
+    curriculum[currentLevel];
+
+    for(let unitKey in units){
+
+    const option =
+    document.createElement("option");
+
+    option.value = unitKey;
+
+    option.textContent =
+    units[unitKey].title;
+
+    selector.appendChild(option);
+
+    }
+
+    loadUnit();
+
+    }
+
+    function loadUnit(){
+
+    currentUnit =
+    document.getElementById("unitSelector").value;
+    
+    const unit =
+    curriculum[currentLevel][currentUnit];
+    
+    document.getElementById("unitTitle").innerHTML =
+    "📚 " + unit.title;
+    
+    availableQuestions =
+    [...unit.questions];
+    
+    }
+
+
+
     questionCounter = 0;
     xp = 0;
     streak = 0;
@@ -257,6 +321,29 @@ function startGame(){
 
     document.getElementById("studentSection").style.display="none";
     document.getElementById("gameArea").style.display="block";
+    document.getElementById("gameArea").style.display="block";
+
+    loadUnits();
+    
+    nextQuestion();
+
+    if(availableQuestions.length === 0){
+
+    availableQuestions =
+    [
+    ...curriculum[currentLevel][currentUnit].questions
+    ];
+    
+    }
+    
+    let randomIndex =
+    Math.floor(Math.random() * availableQuestions.length);
+    
+    currentQuestion =
+    availableQuestions[randomIndex];
+    
+    availableQuestions.splice(randomIndex,1);
+
 
     //Inicio paso: Paso 3.7.2: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
     document.getElementById("level").innerText =
