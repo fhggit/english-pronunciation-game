@@ -150,15 +150,12 @@ let score = compare(currentQuestion, userText);
 updateXP(score);
 sendToSheet(userText, score);
 
-document.getElementById("feedback").innerHTML =
-
-//Inicio paso: Paso 3.6: Cambios importantes en script.js: Dentro de updateXP(score) agrega al final:
 document.getElementById("xp").innerText = xp;
 document.getElementById("streak").innerText = streak;
 
 updateBadge();
 
-//Fin paso: Paso 3.6: Cambios importantes en script.js: Dentro de updateXP(score) agrega al final:
+document.getElementById("feedback").innerHTML =
 `
 🗣 You said: ${userText} <br>
 ⭐ Score: ${score}% <br>
