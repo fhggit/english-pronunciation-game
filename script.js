@@ -1,5 +1,11 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbwD9rZHsXv_P42x7tgrGFuyd4mKQYl2M59GIxSySdDxf-ll_iFMcLdaggvoddWiSa9y/exec";
 
+//Inicio paso: Paso 3.1: Cambios importantes en script.js 
+//Paso 3: Cambios importantes en script.js
+let questionCounter = 0;
+const TOTAL_QUESTIONS = 10;
+//Fin paso: Paso 3.1: Cambios importantes en script.js 
+
 let currentQuestion = "";
 let currentLevel = 1;
 let xp = 0;
@@ -15,10 +21,21 @@ const levels = {
 6: ["reading helps improve vocabulary", "education is the key to success"]
 };
 
+//Inicio paso: Paso 3.2: Cambios importantes en script.js 
 function startGame(){
-setLevel();
-nextQuestion();
+
+    setLevel();
+
+    questionCounter = 0;
+    xp = 0;
+    streak = 0;
+
+    document.getElementById("studentSection").style.display="none";
+    document.getElementById("gameArea").style.display="block";
+
+    nextQuestion();
 }
+//Fin paso: Paso 3.2: Cambios importantes en script.js 
 
 function setLevel(){
 let course = document.getElementById("course").value.toUpperCase();
@@ -32,16 +49,81 @@ else if(grade === "9") currentLevel = 4;
 else if(grade === "1") currentLevel = 5; // 10°
 else if(grade === "1" && course.startsWith("11")) currentLevel = 6;
 else currentLevel = 1;
+
+//Inicio paso: Paso 3.7: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
+document.getElementById("level").innerText =
+    currentLevel;
+//Inicio paso: Paso 3.7: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
+
 }
 
+//Inicio paso: Paso 3.3: Cambios importantes en script.js: Añade esta función 
+function listenPhrase(){
+
+    let utterance =
+        new SpeechSynthesisUtterance(currentQuestion);
+
+    utterance.lang = "en-US";
+
+    speechSynthesis.speak(utterance);
+}
+//Fin paso: Paso 3.3: Cambios importantes en script.js: Añade esta función 
+
+//Inico paso: Paso 3.4: Cambios importantes en script.js: Reemplaza completamente nextQuestion()
 function nextQuestion(){
 
-let pool = levels[currentLevel];
-currentQuestion = pool[Math.floor(Math.random()*pool.length)];
+    if(questionCounter >= TOTAL_QUESTIONS){
 
-document.getElementById("question").innerText = currentQuestion;
-document.getElementById("feedback").innerText = "";
+        document.getElementById("question").innerHTML =
+            "🏆 Game Finished!";
+
+        document.getElementById("feedback").innerHTML =
+            `Final XP: ${xp}`;
+
+        return;
+    }
+
+    questionCounter++;
+
+    document.getElementById("questionNumber").innerText =
+        questionCounter;
+
+    let percentage =
+        (questionCounter / TOTAL_QUESTIONS) * 100;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+
+    let pool = levels[currentLevel];
+
+    currentQuestion =
+        pool[Math.floor(Math.random()*pool.length)];
+
+    document.getElementById("question").innerText =
+        currentQuestion;
+
+    document.getElementById("feedback").innerText = "";
 }
+//Fin paso: Paso 3.4: Cambios importantes en script.js: Reemplaza completamente nextQuestion()
+
+//Inicio paso: Paso 3.5: Cambios importantes en script.js: Añade esta función de insignias
+function updateBadge(){
+
+    let badge = "🥉 Beginner Speaker";
+
+    if(xp >= 50)
+        badge = "🥈 English Explorer";
+
+    if(xp >= 100)
+        badge = "🥇 Pronunciation Master";
+
+    if(xp >= 200)
+        badge = "👑 English Champion";
+
+    document.getElementById("badgeArea").innerText =
+        badge;
+}
+//Fin paso: Paso 3.5: Cambios importantes en script.js: Añade esta función de insignias
 
 function speak(){
 
@@ -64,6 +146,14 @@ updateXP(score);
 sendToSheet(userText, score);
 
 document.getElementById("feedback").innerHTML =
+
+//Inicio paso: Paso 3.6: Cambios importantes en script.js: Dentro de updateXP(score) agrega al final:
+document.getElementById("xp").innerText = xp;
+document.getElementById("streak").innerText = streak;
+
+updateBadge();
+
+//Fin paso: Paso 3.6: Cambios importantes en script.js: Dentro de updateXP(score) agrega al final:
 `
 🗣 You said: ${userText} <br>
 ⭐ Score: ${score}% <br>
