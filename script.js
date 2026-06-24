@@ -1,3 +1,5 @@
+let availableQuestions = [];
+
 const API_URL = "https://script.google.com/macros/s/AKfycbwD9rZHsXv_P42x7tgrGFuyd4mKQYl2M59GIxSySdDxf-ll_iFMcLdaggvoddWiSa9y/exec";
 
 //Inicio paso: Paso 3.1: Cambios importantes en script.js 
@@ -251,6 +253,8 @@ function startGame(){
     xp = 0;
     streak = 0;
 
+    availableQuestions = [...levels[currentLevel]];
+
     document.getElementById("studentSection").style.display="none";
     document.getElementById("gameArea").style.display="block";
 
@@ -259,8 +263,25 @@ function startGame(){
     currentLevel;
     //Fin paso: Paso 3.7.2: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
 
-    nextQuestion();
-}
+    //nextQuestion();
+
+    if(availableQuestions.length === 0){
+
+    ```
+    availableQuestions = [...levels[currentLevel]];
+    ```
+
+    }
+
+    let randomIndex =
+    Math.floor(Math.random()*availableQuestions.length);
+
+    currentQuestion =
+    availableQuestions[randomIndex];
+
+    availableQuestions.splice(randomIndex,1);
+
+    }
 //Fin paso: Paso 3.2: Cambios importantes en script.js 
 
 function setLevel(){
