@@ -33,6 +33,11 @@ function startGame(){
     document.getElementById("studentSection").style.display="none";
     document.getElementById("gameArea").style.display="block";
 
+    //Inicio paso: Paso 3.7.2: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
+    document.getElementById("level").innerText =
+    currentLevel;
+    //Fin paso: Paso 3.7.2: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
+
     nextQuestion();
 }
 //Fin paso: Paso 3.2: Cambios importantes en script.js 
@@ -50,10 +55,10 @@ else if(grade === "1") currentLevel = 5; // 10°
 else if(grade === "1" && course.startsWith("11")) currentLevel = 6;
 else currentLevel = 1;
 
-//Inicio paso: Paso 3.7: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
-document.getElementById("level").innerText =
-    currentLevel;
-//Inicio paso: Paso 3.7: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
+//Inicio paso: Paso 3.7.1: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
+//document.getElementById("level").innerText =
+    //currentLevel;
+//Inicio paso: Paso 3.7.1: Cambios importantes en script.js: Dentro de setLevel() agrega al final: 
 
 }
 
