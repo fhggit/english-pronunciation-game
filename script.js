@@ -163,26 +163,79 @@ const levels = {
 
 // Grade 11 - Saber 11 Style
 
+// Education
+
 "education is the key to success",
-"reading improves critical thinking",
-"students should develop good study habits",
-"healthy lifestyles improve academic performance",
-"technology can support learning",
-"environmental protection is everyone's responsibility",
-"recycling helps reduce pollution",
-"public transportation can reduce traffic",
-"volunteering benefits the community",
-"communication skills are important",
 "learning english creates opportunities",
-"cultural diversity enriches society",
-"teamwork improves productivity",
-"social networks influence communication",
-"critical reading helps understanding",
-"students should manage their time wisely",
-"scientific discoveries improve our lives",
+"students should develop good study habits",
+"reading improves critical thinking",
 "education promotes social development",
+
+// Environment
+
+"recycling helps reduce pollution",
+"environmental protection is everyone's responsibility",
+"water conservation is important",
+"renewable energy protects the planet",
+"everyone can help the environment",
+
+// Technology
+
+"technology can support learning",
+"artificial intelligence is transforming society",
+"digital tools improve communication",
+"social networks influence communication",
+"technology changes our daily lives",
+
+// Health
+
+"healthy lifestyles improve academic performance",
+"regular exercise benefits the body",
+"good nutrition supports learning",
+"sleep is important for students",
+"mental health affects academic success",
+
+// Community
+
+"volunteering benefits the community",
+"teamwork improves productivity",
+"cultural diversity enriches society",
+"communication skills are important",
 "global challenges require cooperation",
-"knowledge helps people make decisions"
+
+// Saber 11 Vocabulary
+
+"knowledge helps people make decisions",
+"critical reading helps understanding",
+"scientific discoveries improve our lives",
+"students should manage their time wisely",
+"information can be found in different sources",
+
+// High-frequency Cognates
+
+"the project was successful",
+"the activity requires organization",
+"technology is essential in education",
+"the information is available online",
+"communication is important for society",
+"the community supports education",
+"the program promotes participation",
+"the university offers opportunities",
+"the document contains important information",
+"the hospital provides medical services",
+
+// Notices and Signs
+
+"please keep the door closed",
+"visitors must register at reception",
+"do not use your cell phone here",
+"employees only beyond this point",
+"please wait for assistance",
+"no food or drinks allowed",
+"keep off the grass",
+"use the emergency exit only",
+"please wear a safety helmet",
+"the library closes at six oclock"
 
 ]
 
