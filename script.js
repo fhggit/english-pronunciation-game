@@ -578,3 +578,49 @@ document.getElementById("rankingArea")
 `;
 
 }
+
+async function showRanking(){
+
+const response =
+await fetch(API_URL);
+
+const data =
+await response.json();
+
+let players = {};
+
+for(let i = 1; i < data.length; i++){
+
+const row = data[i];
+
+const name = row[1];
+const xp = Number(row[8]);
+
+if(!players[name])
+players[name] = 0;
+
+players[name] += xp;
+
+}
+
+let ranking =
+Object.entries(players)
+.sort((a,b)=>b[1]-a[1])
+.slice(0,10);
+
+let html =
+"<h3>🏆 Top 10 Players</h3>";
+
+ranking.forEach((player,index)=>{
+
+html +=
+`${index+1}. ${player[0]}
+ - ${player[1]} XP<br>`;
+
+});
+
+document.getElementById(
+"rankingArea"
+).innerHTML = html;
+
+}
