@@ -6,6 +6,7 @@ let currentUnit = "unit1";
 
 let xp = 0;
 let streak = 0;
+let lives = 3;
 
 let questionCounter = 0;
 
@@ -215,6 +216,7 @@ setLevel();
 questionCounter = 0;
 xp = 0;
 streak = 0;
+lives = 3;
 
 document.getElementById("studentSection")
 .style.display = "none";
@@ -457,6 +459,21 @@ else{
 
 streak = 0;
 
+lives--;
+
+if(lives <= 0){
+
+document.getElementById("question")
+.innerHTML =
+"💀 Game Over";
+
+document.getElementById("feedback")
+.innerHTML =
+"Final XP: " + xp;
+
+return;
+}
+
 }
 
 document.getElementById("xp")
@@ -464,6 +481,9 @@ document.getElementById("xp")
 
 document.getElementById("streak")
 .innerText = streak;
+
+document.getElementById("lives")
+.innerText = lives;
 
 updateBadge();
 
