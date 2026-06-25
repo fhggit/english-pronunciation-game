@@ -21,7 +21,11 @@ CURRICULUM
 
 const curriculum = {
 1: grade6,
-2: grade7
+2: grade7,
+3: grade8,
+4: grade9,
+5: grade10,
+6: grade11
 };
 
 /* ==========================
@@ -40,6 +44,18 @@ currentLevel = 1;
 
 else if(course.startsWith("7"))
 currentLevel = 2;
+
+else if(course.startsWith("8"))
+currentLevel = 3;
+
+else if(course.startsWith("9"))
+currentLevel = 4;
+
+else if(course.startsWith("10"))
+currentLevel = 5;
+
+else if(course.startsWith("11"))
+currentLevel = 6;
 
 else
 currentLevel = 1;
