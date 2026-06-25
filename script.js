@@ -8,6 +8,7 @@ let xp = 0;
 let streak = 0;
 let lives = 3;
 let gameOver = false;
+let unlockedUnit = 1;
 
 let questionCounter = 0;
 
@@ -78,14 +79,29 @@ selector.innerHTML = "";
 const units =
 curriculum[currentLevel];
 
-for(let key in units){
+let counter = 1;
 
+for(let key in units){
+  
 const option =
 document.createElement("option");
 
 option.value = key;
+if(counter <= unlockedUnit){
+
 option.textContent =
 units[key].title;
+
+}else{
+
+option.textContent =
+"🔒 Locked";
+
+option.disabled = true;
+
+}
+
+counter++;
 
 selector.appendChild(option);
 
@@ -220,6 +236,8 @@ streak = 0;
 lives = 3;
 gameOver = false;
 
+unlockedUnit = 1;
+
 document.getElementById("studentSection")
 .style.display = "none";
 
@@ -257,6 +275,8 @@ units.indexOf(currentUnit);
 
 if(currentIndex < units.length - 1){
 
+unlockedUnit++;
+  
 currentUnit =
 units[currentIndex + 1];
 
