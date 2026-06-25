@@ -11,6 +11,9 @@ let questionCounter = 0;
 const TOTAL_QUESTIONS = 10;
 
 let availableQuestions = [];
+let reviewQuestions = [];
+let currentQuestionPool = [];
+
 
 /* ==========================
 CURRICULUM
@@ -115,6 +118,55 @@ selector.appendChild(option);
 
 loadUnit();
 
+function buildQuestionPool(){
+
+currentQuestionPool = [];
+
+const currentQuestions =
+curriculum[currentLevel][currentUnit].questions;
+
+// 80% preguntas de la unidad actual
+currentQuestionPool.push(...currentQuestions);
+
+// Buscar unidades anteriores
+const units =
+Object.keys(curriculum[currentLevel]);
+
+const currentIndex =
+units.indexOf(currentUnit);
+
+reviewQuestions = [];
+
+for(let i = 0; i < currentIndex; i++){
+
+reviewQuestions.push(
+...curriculum[currentLevel][units[i]].questions
+);
+
+}
+
+// Agregar hasta 2 preguntas de repaso
+if(reviewQuestions.length > 0){
+
+for(let i = 0; i < 2; i++){
+
+const randomIndex =
+Math.floor(Math.random() * reviewQuestions.length);
+
+currentQuestionPool.push(
+reviewQuestions[randomIndex]
+);
+
+}
+
+}
+
+availableQuestions =
+[...currentQuestionPool];
+
+}
+
+
 }
 
 function loadUnit(){
@@ -128,8 +180,7 @@ curriculum[currentLevel][currentUnit];
 document.getElementById("unitTitle").innerHTML =
 "📚 " + unit.title;
 
-availableQuestions =
-[...unit.questions];
+buildQuestionPool();
 
 }
 
@@ -233,11 +284,7 @@ percentage + "%";
 
 if(availableQuestions.length === 0){
 
-availableQuestions =
-[
-...curriculum[currentLevel][currentUnit]
-.questions
-];
+buildQuestionPool();
 
 }
 
