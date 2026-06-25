@@ -156,7 +156,7 @@ document.getElementById("level")
 
 loadUnits();
 
-nextQuestion();
+;
 
 }
 
@@ -168,9 +168,46 @@ function nextQuestion(){
 
 if(questionCounter >= TOTAL_QUESTIONS){
 
+const units =
+Object.keys(curriculum[currentLevel]);
+
+let currentIndex =
+units.indexOf(currentUnit);
+
+if(currentIndex < units.length - 1){
+
+currentUnit =
+units[currentIndex + 1];
+
+questionCounter = 0;
+
+availableQuestions =
+[
+...curriculum[currentLevel][currentUnit]
+.questions
+];
+
+document.getElementById("unitSelector").value =
+currentUnit;
+
+document.getElementById("unitTitle").innerHTML =
+"📚 " +
+curriculum[currentLevel][currentUnit].title;
+
+alert(
+"🎉 Unit completed!\n\nNext Unit Unlocked: " +
+curriculum[currentLevel][currentUnit].title
+);
+
+nextQuestion();
+
+return;
+
+}
+
 document.getElementById("question")
 .innerHTML =
-"🏆 Game Finished";
+"🏆 Grade Completed!";
 
 document.getElementById("feedback")
 .innerHTML =
@@ -179,6 +216,7 @@ document.getElementById("feedback")
 return;
 
 }
+
 
 questionCounter++;
 
