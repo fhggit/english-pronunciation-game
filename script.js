@@ -405,6 +405,11 @@ userText
 
 updateXP(score);
 
+sendToSheet(
+userText,
+score
+);
+
 if(gameOver){
 return;
 }
@@ -509,6 +514,32 @@ updateBadge();
 
 }
 
+function sendToSheet(answer, score){
+
+let name =
+document.getElementById("name").value;
+
+let course =
+document.getElementById("course").value;
+
+fetch(API_URL,{
+method:"POST",
+body: JSON.stringify({
+nombre: name,
+curso: course,
+nivel: currentLevel,
+unidad: currentUnit,
+pregunta: currentQuestion,
+respuesta: answer,
+puntaje: score,
+xp: xp
+})
+})
+.catch(error =>
+console.error(error));
+
+}
+
 /* ==========================
 BADGES
 ========================== */
@@ -532,5 +563,18 @@ badge =
 
 document.getElementById("badgeArea")
 .innerText = badge;
+
+}
+
+function showRanking(){
+
+document.getElementById("rankingArea")
+.innerHTML = `
+<h3>🏆 Ranking</h3>
+
+1. Ana - 250 XP<br>
+2. Juan - 220 XP<br>
+3. Sara - 180 XP<br>
+`;
 
 }
