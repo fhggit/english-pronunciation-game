@@ -37,6 +37,10 @@ document.getElementById("course")
 
 if(course.startsWith("6"))
 currentLevel = 1;
+
+else if(course.startsWith("7"))
+currentLevel = 2;
+
 else
 currentLevel = 1;
 
