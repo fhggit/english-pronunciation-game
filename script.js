@@ -115,7 +115,6 @@ if(previousValue){
 selector.value = previousValue;
 }
 
-}
 loadUnit();
 
 }
