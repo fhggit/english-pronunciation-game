@@ -350,6 +350,10 @@ LISTEN
 
 function listenPhrase(){
 
+if(gameOver){
+return;
+}
+
 let utterance =
 new SpeechSynthesisUtterance(
 currentQuestion
@@ -400,6 +404,10 @@ userText
 );
 
 updateXP(score);
+
+if(gameOver){
+return;
+}
 
 document.getElementById("feedback")
 .innerHTML =
