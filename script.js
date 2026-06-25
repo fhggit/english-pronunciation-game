@@ -8,9 +8,9 @@ let xp = 0;
 let streak = 0;
 
 let questionCounter = 0;
-const TOTAL_QUESTIONS = 10;
 
 let availableQuestions = [];
+let totalQuestionsCurrentUnit = 0;
 let reviewQuestions = [];
 let currentQuestionPool = [];
 
@@ -38,10 +38,19 @@ questions: [
 unit2: {
 title: "Courtesy Expressions",
 questions: [
+
 "thank you",
-"please"
+"please",
+"you are welcome",
+"excuse me",
+"sorry",
+"goodbye",
+"see you later",
+"have a nice day"
+
 ]
-},
+}
+
 
 unit3: {
 title: "Professions",
@@ -120,54 +129,100 @@ loadUnit();
 
 function buildQuestionPool(){
 
-currentQuestionPool = [];
+availableQuestions = [];
 
-const currentQuestions =
-curriculum[currentLevel][currentUnit].questions;
-
-// 80% preguntas de la unidad actual
-currentQuestionPool.push(...currentQuestions);
-
-// Buscar unidades anteriores
 const units =
 Object.keys(curriculum[currentLevel]);
 
 const currentIndex =
 units.indexOf(currentUnit);
 
-reviewQuestions = [];
+/* ------------------
+Preguntas de la unidad actual
+------------------ */
+
+let currentQuestions =
+[
+...curriculum[currentLevel][currentUnit]
+.questions
+];
+
+shuffleArray(currentQuestions);
+
+availableQuestions.push(
+...currentQuestions
+);
+
+/* ------------------
+Preguntas de repaso
+------------------ */
+
+let reviewPool = [];
 
 for(let i = 0; i < currentIndex; i++){
 
-reviewQuestions.push(
-...curriculum[currentLevel][units[i]].questions
+reviewPool.push(
+...curriculum[currentLevel][units[i]]
+.questions
+);
+
+TOTAL_QUESTIONS =
+availableQuestions.length;
+
+}
+
+shuffleArray(reviewPool);
+
+const reviewCount =
+Math.min(2, reviewPool.length);
+
+const selectedReviews =
+reviewPool.slice(0, reviewCount);
+
+availableQuestions.push(
+...selectedReviews
+);
+
+/* ------------------
+Mezclar todo
+------------------ */
+
+shuffleArray(availableQuestions);
+
+totalQuestionsCurrentUnit =
+availableQuestions.length;
+
+console.log(
+"Unit:",
+currentUnit,
+"Questions:",
+availableQuestions
 );
 
 }
 
-// Agregar hasta 2 preguntas de repaso
-if(reviewQuestions.length > 0){
 
-for(let i = 0; i < 2; i++){
 
-const randomIndex =
-Math.floor(Math.random() * reviewQuestions.length);
+function shuffleArray(array){
 
-currentQuestionPool.push(
-reviewQuestions[randomIndex]
+for(
+let i = array.length - 1;
+i > 0;
+i--
+){
+
+const j =
+Math.floor(
+Math.random() * (i + 1)
 );
 
-}
+[array[i], array[j]] =
+[array[j], array[i]];
 
 }
 
-availableQuestions =
-[...currentQuestionPool];
-
 }
 
-
-}
 
 function loadUnit(){
 
@@ -181,6 +236,8 @@ document.getElementById("unitTitle").innerHTML =
 "📚 " + unit.title;
 
 buildQuestionPool();
+
+questionCounter = 0;
 
 }
 
@@ -217,8 +274,8 @@ NEXT QUESTION
 
 function nextQuestion(){
 
-if(questionCounter >= TOTAL_QUESTIONS){
-
+if(questionCounter >= totalQuestionsCurrentUnit)
+  
 const units =
 Object.keys(curriculum[currentLevel]);
 
@@ -232,11 +289,7 @@ units[currentIndex + 1];
 
 questionCounter = 0;
 
-availableQuestions =
-[
-...curriculum[currentLevel][currentUnit]
-.questions
-];
+buildQuestionPool();
 
 document.getElementById("unitSelector").value =
 currentUnit;
@@ -274,6 +327,10 @@ questionCounter++;
 document.getElementById("questionNumber")
 .innerText =
 questionCounter;
+
+document.getElementById("totalQuestions")
+.innerText =
+totalQuestionsCurrentUnit;
 
 let percentage =
 (questionCounter / TOTAL_QUESTIONS) * 100;
