@@ -7,6 +7,7 @@ let currentUnit = "unit1";
 let xp = 0;
 let streak = 0;
 let lives = 3;
+let gameOver = false;
 
 let questionCounter = 0;
 
@@ -217,6 +218,7 @@ questionCounter = 0;
 xp = 0;
 streak = 0;
 lives = 3;
+gameOver = false;
 
 document.getElementById("studentSection")
 .style.display = "none";
@@ -240,6 +242,10 @@ NEXT QUESTION
 ========================== */
 
 function nextQuestion(){
+
+if(gameOver){
+return;
+}
 
 if(questionCounter >= totalQuestionsCurrentUnit){
   
@@ -363,6 +369,10 @@ SPEAK
 
 function speak(){
 
+  if(gameOver){
+return;
+}
+  
 const SpeechRecognition =
 window.SpeechRecognition ||
 window.webkitSpeechRecognition;
@@ -462,6 +472,8 @@ streak = 0;
 lives--;
 
 if(lives <= 0){
+
+gameOver = true;
 
 document.getElementById("question")
 .innerHTML =
