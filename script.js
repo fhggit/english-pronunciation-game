@@ -49,7 +49,7 @@ questions: [
 "have a nice day"
 
 ]
-}
+},
 
 
 unit3: {
@@ -127,6 +127,8 @@ selector.appendChild(option);
 
 loadUnit();
 
+}
+
 function buildQuestionPool(){
 
 availableQuestions = [];
@@ -165,9 +167,6 @@ reviewPool.push(
 ...curriculum[currentLevel][units[i]]
 .questions
 );
-
-TOTAL_QUESTIONS =
-availableQuestions.length;
 
 }
 
@@ -264,6 +263,8 @@ document.getElementById("level")
 
 loadUnits();
 
+nextQuestion();
+
 ;
 
 }
@@ -274,7 +275,7 @@ NEXT QUESTION
 
 function nextQuestion(){
 
-if(questionCounter >= totalQuestionsCurrentUnit)
+if(questionCounter >= totalQuestionsCurrentUnit){
   
 const units =
 Object.keys(curriculum[currentLevel]);
@@ -293,6 +294,9 @@ buildQuestionPool();
 
 document.getElementById("unitSelector").value =
 currentUnit;
+
+document.getElementById("questionNumber")
+.innerText = 0;
 
 document.getElementById("unitTitle").innerHTML =
 "📚 " +
@@ -333,7 +337,7 @@ document.getElementById("totalQuestions")
 totalQuestionsCurrentUnit;
 
 let percentage =
-(questionCounter / TOTAL_QUESTIONS) * 100;
+(questionCounter / totalQuestionsCurrentUnit) * 100;
 
 document.getElementById("progressBar")
 .style.width =
@@ -341,7 +345,7 @@ percentage + "%";
 
 if(availableQuestions.length === 0){
 
-buildQuestionPool();
+return;
 
 }
 
