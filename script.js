@@ -74,6 +74,9 @@ function loadUnits(){
 const selector =
 document.getElementById("unitSelector");
 
+let previousValue =
+selector.value;
+
 selector.innerHTML = "";
 
 const units =
@@ -82,11 +85,12 @@ curriculum[currentLevel];
 let counter = 1;
 
 for(let key in units){
-  
+
 const option =
 document.createElement("option");
 
 option.value = key;
+
 if(counter <= unlockedUnit){
 
 option.textContent =
@@ -95,18 +99,23 @@ units[key].title;
 }else{
 
 option.textContent =
-"🔒 Locked";
+"🔒 " + units[key].title;
 
 option.disabled = true;
 
 }
 
-counter++;
-
 selector.appendChild(option);
+
+counter++;
 
 }
 
+if(previousValue){
+selector.value = previousValue;
+}
+
+}
 loadUnit();
 
 }
@@ -276,7 +285,9 @@ units.indexOf(currentUnit);
 if(currentIndex < units.length - 1){
 
 unlockedUnit++;
-  
+
+loadUnits();
+
 currentUnit =
 units[currentIndex + 1];
 
@@ -583,19 +594,6 @@ badge =
 
 document.getElementById("badgeArea")
 .innerText = badge;
-
-}
-
-function showRanking(){
-
-document.getElementById("rankingArea")
-.innerHTML = `
-<h3>🏆 Ranking</h3>
-
-1. Ana - 250 XP<br>
-2. Juan - 220 XP<br>
-3. Sara - 180 XP<br>
-`;
 
 }
 
